@@ -40,8 +40,8 @@ def future_contests():
 
 @app.route('/')
 def root():
-	x = 'Try /contests/present'
-	return x
+	x = re.get('https://harshitbudhraja.github.io/codechef-api/')
+	return x.text
 
 if __name__ == '__main__':
 	app.run()
