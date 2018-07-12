@@ -38,6 +38,10 @@ def future_contests():
 	x = parseContests(FUTURE_CONTESTS)
 	return jsonify(result=x)
 
+@app.route('/')
+def root():
+	x = 'Try /contests/present'
+	return x
+
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+	app.run()
