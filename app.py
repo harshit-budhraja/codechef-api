@@ -2,7 +2,7 @@
 # Unofficial Codechef API
 import os
 import requests as re
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from contests import parseContests
 
@@ -40,8 +40,7 @@ def future_contests():
 
 @app.route('/')
 def root():
-	x = re.get('https://harshitbudhraja.github.io/codechef-api/')
-	return x.text
+	return redirect('https://harshitbudhraja.github.io/codechef-api/', code=302)
 
 if __name__ == '__main__':
 	app.run()
