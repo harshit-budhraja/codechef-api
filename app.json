@@ -1,0 +1,6 @@
+{
+  "name": "Codechef API",
+  "description": "An Unofficial Codechef API.",
+  "repository": "https://github.com/harshitbudhraja/codechef-api",
+  "keywords": ["unofficial", "codechef", "api", "ranklists", "contests"]
+}
