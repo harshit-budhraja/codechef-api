@@ -16,7 +16,7 @@ class User:
 	link = ''
 	group = ''
 	institution = ''
-	profile_img = ''
+	profile_img = 'https://s3.amazonaws.com/codechef_shared/sites/all/themes/abessive/images/user_default_thumb.jpg'
 	rating = ''
 	global_rank = ''
 	country_rank = ''
