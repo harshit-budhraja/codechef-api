@@ -5,6 +5,7 @@ import requests as re
 from flask import Flask, jsonify, redirect
 from flask_cors import CORS
 from contests import parseContests
+from users import getUser
 
 app = Flask(__name__)
 CORS(app)
@@ -36,6 +37,11 @@ def past_contests():
 @app.route('/contests/future')
 def future_contests():
 	x = parseContests(FUTURE_CONTESTS)
+	return jsonify(result=x)
+
+@app.route('/users/<handle>')
+def User(handle):
+	x = getUser(handle)
 	return jsonify(result=x)
 
 @app.route('/')
