@@ -7,6 +7,7 @@ URL = 'https://codechef.com/users/'
 user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
 
 class User:
+	request_status = ''
 	handle = ''
 	name = ''
 	country = ''
@@ -22,13 +23,22 @@ class User:
 	country_rank = ''
 	fully_solved = ''
 	partially_solved = ''
-	def serialize(self):
-		return {'handle':self.handle, 'name':self.name, 'link':self.link, 'country':self.country, 'state':self.state, 'city':self.city, 'motto':self.motto, 'group':self.group, 'institution':self.institution, 'profile_img':self.profile_img, 'rating':self.rating, 'global_rank':self.global_rank, 'country_rank':self.country_rank, 'fully_solved':self.fully_solved, 'partially_solved':self.partially_solved}
+	def serialize(self, Found):
+		if Found == True:
+			return {'request_status':200, 'handle':self.handle, 'name':self.name, 'link':self.link, 'country':self.country, 'state':self.state, 'city':self.city, 'motto':self.motto, 'group':self.group, 'institution':self.institution, 'profile_img':self.profile_img, 'rating':self.rating, 'global_rank':self.global_rank, 'country_rank':self.country_rank, 'fully_solved':self.fully_solved, 'partially_solved':self.partially_solved}
+		else:
+			return {'request_status':404, 'handle':self.handle, 'name':self.name, 'link':self.link, 'country':self.country, 'state':self.state, 'city':self.city, 'motto':self.motto, 'group':self.group, 'institution':self.institution, 'profile_img':self.profile_img, 'rating':self.rating, 'global_rank':self.global_rank, 'country_rank':self.country_rank, 'fully_solved':self.fully_solved, 'partially_solved':self.partially_solved}
 
 def getUser(handle):
 	user = User()
 	req = urllib2.Request(URL + handle, headers={'User-Agent': user_agent})
-	page = urllib2.urlopen(req)
+	#page = urllib2.urlopen(req)
+	try:
+		page = urllib2.urlopen(req)
+	except urllib2.HTTPError as e:
+	    if e.code == 404:
+	    	return user.serialize(False)
+
 	soup = BeautifulSoup(page, 'html.parser')
 
 	is_motto = False
@@ -83,4 +93,4 @@ def getUser(handle):
 		user.fully_solved = soup.find_all('h5')[0].string.split('(')[1].split(')')[0]
 		user.partially_solved = soup.find_all('h5')[1].string.split('(')[1].split(')')[0]
 
-	return user.serialize()
+		return user.serialize(True)
